@@ -1,19 +1,24 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class InterfaceGraphique extends JFrame {
     //attribute
-    //JButton[][] jeu;
+    private Plateau plateau;
+    private JPanel panelPlateau;
+    private Case[][] jeu;
+    //constructor
     InterfaceGraphique(String title, int width, int height) {
         // creation de la fenetre
         super(title);
+        //init plateau
+        this.plateau = new Plateau(this,10,10,43);
+        this.jeu = new Case[10][10];
         // Menu
         JMenuBar menu = new JMenuBar();
         // Menu - Game
         JMenu game = new JMenu("Game");
         JMenuItem newG = new JMenuItem("New game");
+        newG.addActionListener((event) -> displayPlateau());
         JMenuItem loadG = new JMenuItem("Load game");
         JMenuItem saveG = new JMenuItem("Save game");
         game.add(newG);
@@ -24,12 +29,7 @@ public class InterfaceGraphique extends JFrame {
         JMenu settings = new JMenu("Settings");
         JMenuItem apparence = new JMenuItem("Apparence");
         JMenuItem gameSettings =  new JMenuItem("Game settings");
-        gameSettings.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new GameSettings();
-            }
-        });
+        gameSettings.addActionListener((event) -> new GameSettings(plateau));
         settings.add(apparence);
         settings.add(gameSettings);
         menu.add(settings);
@@ -38,6 +38,11 @@ public class InterfaceGraphique extends JFrame {
         JMenuItem rule = new JMenuItem("Rules");
         JMenuItem astuce = new JMenuItem("Astuce");
         JMenuItem aPropos = new JMenuItem("A propos");
+        aPropos.addActionListener((event) -> {
+            System.out.println("nbBombes : "+plateau.getNbrBombes());
+            System.out.println("dimX : "+plateau.getDimX());
+            System.out.println("dimY : "+plateau.getDimY());
+        });
         help.add(rule);
         help.add(astuce);
         help.add(aPropos);
@@ -46,26 +51,28 @@ public class InterfaceGraphique extends JFrame {
         JMenu quit = new JMenu("Quit");
         JMenuItem saveQuit = new JMenuItem("Save & quit");
         JMenuItem quitGame = new JMenuItem("Quit");
-        quitGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                InterfaceGraphique.super.dispose();
-            }
-        });
+        quitGame.addActionListener((event) -> InterfaceGraphique.super.dispose());
         quit.add(quitGame);
         quit.add(saveQuit);
         menu.add(quit);
 
         this.add(menu,BorderLayout.PAGE_START);
         //Creation de l'espace du plateau
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.DARK_GRAY);
-        this.add(panel,BorderLayout.CENTER);
+        panelPlateau = new JPanel();
+        panelPlateau.setBackground(Color.DARK_GRAY);
+        this.add(panelPlateau,BorderLayout.CENTER);
         //finalisation de la fenêtre
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setSize(width, height);
         this.setVisible(true);
+    }
+    //methode
+    public void displayPlateau() {
+        panelPlateau.removeAll();
+        plateau.initJeu();
+        jeu = new Case[plateau.getDimY()][plateau.getDimX()];
+        return;
     }
 
 

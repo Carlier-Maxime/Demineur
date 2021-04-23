@@ -3,7 +3,7 @@ public class Demo
     //main
     public static void main(String[] args)
     {
-        new InterfaceGraphique("Démineur V_0.0.0",750,750);
+        new InterfaceGraphique("Démineur V_0.0.1",750,750);
         /*
         JLabel label = new JLabel("Bonjour, bienvenue dans ce test graphic !", JLabel.CENTER);
 
