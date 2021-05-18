@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class InterfaceGraphique extends JFrame {
@@ -60,6 +61,7 @@ public class InterfaceGraphique extends JFrame {
         //Creation de l'espace du plateau
         panelPlateau = new JPanel();
         panelPlateau.setBackground(Color.DARK_GRAY);
+        panelPlateau.setLayout(new BoxLayout(panelPlateau,BoxLayout.Y_AXIS));
         this.add(panelPlateau,BorderLayout.CENTER);
         //finalisation de la fenêtre
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,7 +74,19 @@ public class InterfaceGraphique extends JFrame {
         panelPlateau.removeAll();
         plateau.initJeu();
         jeu = new Case[plateau.getDimY()][plateau.getDimX()];
-        return;
+        for (int i=0; i<plateau.getDimY(); i++) {
+            JPanel ligne =  new JPanel();
+            ligne.setLayout(new BoxLayout(ligne,BoxLayout.X_AXIS));
+            ligne.setBackground(Color.DARK_GRAY);
+            for (int j=0; j<plateau.getDimX(); j++) {
+                jeu[i][j] = new Case(plateau,j,i);
+                ligne.add(jeu[i][j]);
+            }
+            ligne.setPreferredSize(ligne.getPreferredSize());
+            panelPlateau.add(ligne);
+        }
+        panelPlateau.setPreferredSize(getPreferredSize());
+        this.pack();
     }
 
 

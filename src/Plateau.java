@@ -80,6 +80,7 @@ public class Plateau {
         return n;
     }
     public void initJeu() {
+        jeu = new int[dimY][dimX][3];
         generateBombes();
         for (int i=0; i<jeu.length; i++) {
             for (int j=0; j<jeu[i].length; j++) {
@@ -87,5 +88,8 @@ public class Plateau {
                 jeu[i][j][2]=0;
             }
         }
+    }
+    public int[] getInfoCase(int posX, int posY) {
+        return jeu[posY][posX];
     }
 }
