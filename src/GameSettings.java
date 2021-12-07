@@ -2,10 +2,10 @@ import javax.swing.*;
 
 public class GameSettings extends JFrame {
     //attribute
-    private Plateau refPlateau;
-    private JTextField nbBombe = new JTextField();
-    private JTextField nbCaseX = new JTextField();
-    private JTextField nbCaseY = new JTextField();
+    private final Plateau refPlateau;
+    private final JTextField nbBombe = new JTextField();
+    private final JTextField nbCaseX = new JTextField();
+    private final JTextField nbCaseY = new JTextField();
     //constructor
     GameSettings(Plateau plateau) {
         // init frame

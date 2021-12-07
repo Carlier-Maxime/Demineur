@@ -4,16 +4,19 @@ import java.awt.*;
 
 public class InterfaceGraphique extends JFrame {
     //attribute
-    private Plateau plateau;
-    private JPanel panelPlateau;
+    private final Plateau plateau;
+    private final JPanel panelPlateau;
     private Case[][] jeu;
     //constructor
-    InterfaceGraphique(String title, int width, int height) {
+    InterfaceGraphique(String title) {
         // creation de la fenetre
         super(title);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(getToolkit().getScreenSize());
         //init plateau
         this.plateau = new Plateau(this,10,10,43);
         this.jeu = new Case[10][10];
+
         // Menu
         JMenuBar menu = new JMenuBar();
         // Menu - Game
@@ -61,32 +64,29 @@ public class InterfaceGraphique extends JFrame {
         //Creation de l'espace du plateau
         panelPlateau = new JPanel();
         panelPlateau.setBackground(Color.DARK_GRAY);
-        panelPlateau.setLayout(new BoxLayout(panelPlateau,BoxLayout.Y_AXIS));
-        this.add(panelPlateau,BorderLayout.CENTER);
+        panelPlateau.setLayout(new GridBagLayout());
+        this.add(panelPlateau);
+
         //finalisation de la fenêtre
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
-        this.setSize(width, height);
         this.setVisible(true);
     }
+
     //methode
     public void displayPlateau() {
         panelPlateau.removeAll();
         plateau.initJeu();
         jeu = new Case[plateau.getDimY()][plateau.getDimX()];
+        GridBagConstraints c = Utils.gridBagConstraints();
         for (int i=0; i<plateau.getDimY(); i++) {
-            JPanel ligne =  new JPanel();
-            ligne.setLayout(new BoxLayout(ligne,BoxLayout.X_AXIS));
-            ligne.setBackground(Color.DARK_GRAY);
+            c.gridy=i;
             for (int j=0; j<plateau.getDimX(); j++) {
                 jeu[i][j] = new Case(plateau,j,i);
-                ligne.add(jeu[i][j]);
+                c.gridx=j;
+                panelPlateau.add(jeu[i][j],c);
             }
-            ligne.setPreferredSize(ligne.getPreferredSize());
-            panelPlateau.add(ligne);
         }
-        panelPlateau.setPreferredSize(getPreferredSize());
-        this.pack();
+        revalidate();
+        repaint();
     }
 
 

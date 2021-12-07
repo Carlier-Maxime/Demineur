@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Plateau {
     //attribute
-    private InterfaceGraphique refUI;
+    private final InterfaceGraphique refUI;
     private int dimX;
     private int dimY;
     private int nbrBombes;
@@ -70,10 +70,10 @@ public class Plateau {
     }
     private int calculAdjacence(int i, int j) {
         int n = 0;
-        for (int y=i-1; y<i+1; y++) {
-            for (int x=j-1; x<j+1; x++) {
-                if (y!=i && x!=j && y>0 && y<dimY && x>0 && x<dimX) {
-                    n++;
+        for (int y=i-1; y<=i+1; y++) {
+            for (int x=j-1; x<=j+1; x++) {
+                if ((y!=i || x!=j) && y>=0 && y<dimY && x>=0 && x<dimX) {
+                    if (jeu[y][x][0]==1) n++;
                 }
             }
         }
