@@ -89,5 +89,7 @@ public class InterfaceGraphique extends JFrame {
         repaint();
     }
 
-
+    public Case getCase(int i, int j){
+        return jeu[i][j];
+    }
 }

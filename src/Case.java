@@ -28,7 +28,17 @@ public class Case extends JButton {
             else {
                 setBackground(new Color(16*infoCase()[1],128-16*infoCase()[1],0));
                 setText(Integer.toString(infoCase()[1]));
-                if (infoCase()[1]==0) System.out.println("reveal other case because 0 bombe adjacent, soon");
+                if (infoCase()[1]==0) {
+                    for (int i=posY-1; i<=posY+1; i++){
+                        for (int j=posX-1; j<=posX+1; j++){
+                            if ((i!=posY || j!=posX) && i>=0 && j>=0 && i<refPlateau.getDimY() && j<refPlateau.getDimX()){
+                                int finalI = i;
+                                int finalJ = j;
+                                new Thread(()->refPlateau.getRefUI().getCase(finalI, finalJ).RightClic()).start();
+                            }
+                        }
+                    }
+                }
             }
             infoCase()[2]=1;
         }
