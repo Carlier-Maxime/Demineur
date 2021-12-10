@@ -48,8 +48,14 @@ public class Case extends JButton {
     //getter & setter
     //methode
     private void RightClic() {
+        if (refPlateau.isFirstReveal()) {
+            while (infoCase()[0]==1){
+                refPlateau.initJeu();
+            }
+        }
         if (!reveal()) refPlateau.gameOver();
         refPlateau.isWin();
+        refPlateau.setFirstReveal(false);
     }
 
     public boolean reveal(){

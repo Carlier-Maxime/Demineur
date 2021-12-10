@@ -11,6 +11,7 @@ public class Plateau {
     private int nbrBombes;
     private int bombeDiscover;
     private int[][][] jeu;
+    private boolean firstReveal;
     //constructor
     public Plateau(InterfaceGraphique UI, int dimX, int dimY, int nbrBombes) {
         this.refUI = UI;
@@ -19,6 +20,7 @@ public class Plateau {
         this.nbrBombes = nbrBombes;
         bombeDiscover = 0;
         this.jeu = new int[dimY][dimX][3];
+        firstReveal = true;
     }
     //getter & setter
 
@@ -90,6 +92,7 @@ public class Plateau {
                 jeu[i][j][2]=0;
             }
         }
+        firstReveal = true;
     }
     public int[] getInfoCase(int posX, int posY) {
         return jeu[posY][posX];
@@ -112,5 +115,13 @@ public class Plateau {
 
     public int getBombeDiscover() {
         return bombeDiscover;
+    }
+
+    public boolean isFirstReveal() {
+        return firstReveal;
+    }
+
+    public void setFirstReveal(boolean firstReveal) {
+        this.firstReveal = firstReveal;
     }
 }
