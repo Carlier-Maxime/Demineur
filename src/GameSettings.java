@@ -46,9 +46,15 @@ public class GameSettings extends JFrame {
         JButton ButtonDone = new JButton("Done");
         ButtonDone.addActionListener((event) -> {
             try {
-                refPlateau.setNbrBombes(Integer.parseInt(nbBombe.getText()));
-                refPlateau.setDimX(Integer.parseInt(nbCaseX.getText()));
-                refPlateau.setDimY(Integer.parseInt(nbCaseY.getText()));
+                int nbBombe = Integer.parseInt(this.nbBombe.getText());
+                if (nbBombe<=0) nbBombe = 43;
+                refPlateau.setNbrBombes(nbBombe);
+                int nbCaseX = Integer.parseInt(this.nbCaseX.getText());
+                if (nbCaseX<=0) nbCaseX = 10;
+                refPlateau.setDimX(nbCaseX);
+                int nbCaseY = Integer.parseInt(this.nbCaseY.getText());
+                if (nbCaseY<=0) nbCaseY = 10;
+                refPlateau.setDimY(nbCaseY);
             } catch (Exception e){
                 refPlateau.setNbrBombes(43);
                 refPlateau.setDimX(10);
