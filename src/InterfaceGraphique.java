@@ -92,4 +92,12 @@ public class InterfaceGraphique extends JFrame {
     public Case getCase(int i, int j){
         return jeu[i][j];
     }
+
+    public void showAllCase(){
+        for (Case[] line : jeu){
+            for (Case caze: line){
+                caze.reveal();
+            }
+        }
+    }
 }

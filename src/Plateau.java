@@ -9,6 +9,7 @@ public class Plateau {
     private int dimX;
     private int dimY;
     private int nbrBombes;
+    private int bombeDiscover;
     private int[][][] jeu;
     //constructor
     public Plateau(InterfaceGraphique UI, int dimX, int dimY, int nbrBombes) {
@@ -16,6 +17,7 @@ public class Plateau {
         this.dimX = dimX;
         this.dimY = dimY;
         this.nbrBombes = nbrBombes;
+        bombeDiscover = 0;
         this.jeu = new int[dimY][dimX][3];
     }
     //getter & setter
@@ -91,5 +93,24 @@ public class Plateau {
     }
     public int[] getInfoCase(int posX, int posY) {
         return jeu[posY][posX];
+    }
+
+    public void gameOver(){
+        refUI.showAllCase();
+        new LoseView();
+    }
+
+    public void isWin(){
+        if (nbrBombes==bombeDiscover){
+            refUI.showAllCase();
+            new WinView();
+        }
+    }
+    public void setBombeDiscover(int bombeDiscover){
+        this.bombeDiscover = bombeDiscover;
+    }
+
+    public int getBombeDiscover() {
+        return bombeDiscover;
     }
 }

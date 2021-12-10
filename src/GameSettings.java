@@ -45,10 +45,17 @@ public class GameSettings extends JFrame {
         ButtonCancel.addActionListener((event) -> this.dispose());
         JButton ButtonDone = new JButton("Done");
         ButtonDone.addActionListener((event) -> {
-            refPlateau.setNbrBombes(Integer.parseInt(nbBombe.getText()));
-            refPlateau.setDimX(Integer.parseInt(nbCaseX.getText()));
-            refPlateau.setDimY(Integer.parseInt(nbCaseY.getText()));
-            this.dispose();
+            try {
+                refPlateau.setNbrBombes(Integer.parseInt(nbBombe.getText()));
+                refPlateau.setDimX(Integer.parseInt(nbCaseX.getText()));
+                refPlateau.setDimY(Integer.parseInt(nbCaseY.getText()));
+            } catch (Exception e){
+                refPlateau.setNbrBombes(43);
+                refPlateau.setDimX(10);
+                refPlateau.setDimY(10);
+            } finally {
+                this.dispose();
+            }
         });
         panel4.add(ButtonDone);
         panel4.add(ButtonCancel);
