@@ -12,6 +12,7 @@ public class Plateau {
     private int bombeDiscover;
     private int[][][] jeu;
     private boolean firstReveal;
+    private int nbRemainingCase;
     //constructor
     public Plateau(InterfaceGraphique UI, int dimX, int dimY, int nbrBombes) {
         this.refUI = UI;
@@ -21,6 +22,7 @@ public class Plateau {
         bombeDiscover = 0;
         this.jeu = new int[dimY][dimX][3];
         firstReveal = true;
+        nbRemainingCase = dimX*dimY;
     }
     //getter & setter
 
@@ -104,7 +106,7 @@ public class Plateau {
     }
 
     public void isWin(){
-        if (nbrBombes==bombeDiscover){
+        if (nbrBombes==bombeDiscover || nbRemainingCase==nbrBombes-bombeDiscover){
             refUI.showAllCase();
             new WinView();
         }
@@ -123,5 +125,13 @@ public class Plateau {
 
     public void setFirstReveal(boolean firstReveal) {
         this.firstReveal = firstReveal;
+    }
+
+    public void setNbRemainingCase(int nbRemainingCase) {
+        this.nbRemainingCase = nbRemainingCase;
+    }
+
+    public int getNbRemainingCase() {
+        return nbRemainingCase;
     }
 }

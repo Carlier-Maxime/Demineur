@@ -42,7 +42,7 @@ public class Case extends JButton {
             }
         });
         setBackground(Color.GRAY);
-        setForeground(new Color(203, 201, 201));
+        setForeground(new Color(200, 200, 200));
         setText("?");
     }
     //getter & setter
@@ -63,6 +63,7 @@ public class Case extends JButton {
             if (infoCase()[0]==1) refPlateau.setBombeDiscover(refPlateau.getBombeDiscover()-1);
         }
         if (infoCase()[2]!=1){
+            refPlateau.setNbRemainingCase(refPlateau.getNbRemainingCase()-1);
             if (infoCase()[0]==1) {
                 setText("¤");
                 setBackground(new Color(199,0,0));
@@ -72,13 +73,13 @@ public class Case extends JButton {
             else {
                 setBackground(new Color(16*infoCase()[1],128-16*infoCase()[1],0));
                 setText(Integer.toString(infoCase()[1]));
+                infoCase()[2]=1;
                 if (infoCase()[1]==0) {
-                    infoCase()[2]=1;
                     for (int i=posY-1; i<=posY+1; i++){
                         for (int j=posX-1; j<=posX+1; j++){
                             if ((i!=posY || j!=posX) && i>=0 && j>=0 && i<refPlateau.getDimY() && j<refPlateau.getDimX()){
                                 Case caze = refPlateau.getRefUI().getCase(i, j);
-                                if (caze.infoCase()[2]==1) continue;
+                                if (caze.infoCase()[2]!=0) continue;
                                 new Thread(caze::reveal).start();
                             }
                         }
@@ -109,6 +110,11 @@ public class Case extends JButton {
             setBackground(new Color(0, 22, 172));
             infoCase()[2]=2;
             refPlateau.isWin();
+        } else if (infoCase()[2]==2){
+            if (infoCase()[0]==1) refPlateau.setBombeDiscover(refPlateau.getBombeDiscover()-1);
+            setText("?");
+            setBackground(Color.GRAY);
+            infoCase()[2]=0;
         }
     }
 }
