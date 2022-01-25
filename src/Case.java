@@ -49,7 +49,7 @@ public class Case extends JButton {
     //methode
     private void RightClic() {
         if (refPlateau.isFirstReveal()) {
-            while (infoCase()[0]==1){
+            while (infoCase()[1]!=0){
                 refPlateau.initJeu();
             }
         }
